@@ -1,2 +1,8 @@
 # bogueirage
-Bogueir Plataform Game...
+Bogueir Plataform Game.
+
+## Dependencies
+
+- Lua
+- Löve2d
+- Luarocks
