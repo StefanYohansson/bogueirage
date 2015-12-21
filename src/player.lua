@@ -34,23 +34,22 @@ function Player.create(x, y, level)
   self.canGrab = false
 	self.grabbed = nil
 
-  local img  = love.graphics.newImage("assets/hero/hero.png")
+  local img  = love.graphics.newImage("assets/hero/hero_running.png")
   self.player_run = newAnimation(img, 55, 55, 0.1, 0)
 
   return self
 end
 
 function Player:update(dt)
+  self.lastDir = self.dir
+  self.state = PS_RUN
+
   if keyboard['d'] then
-    self.lastDir = self.dir
     self.dir = 1
-    self.xspeed = 150
     self:updateRunning(dt)
   end
   if keyboard['a'] then
-    self.lastDir = self.dir
     self.dir = -1
-    self.xspeed = 80
     self:updateRunning(dt)
   end
 end
@@ -62,5 +61,5 @@ function Player:updateRunning(dt)
 end
 
 function Player:draw()
-  self.player_run:draw(self.x, self.y)
+  self.player_run:draw(self.x, self.y, 0, self.dir, 1)
 end
