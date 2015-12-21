@@ -34,8 +34,10 @@ function Player.create(x, y, level)
   self.canGrab = false
 	self.grabbed = nil
 
+  self.width = 55
+  self.height = 55
   local img  = love.graphics.newImage("assets/hero/hero_running.png")
-  self.player_run = newAnimation(img, 55, 55, 0.1, 0)
+  self.player_run = newAnimation(img, self.width, self.height, 0.1, 0)
 
   return self
 end
@@ -61,5 +63,5 @@ function Player:updateRunning(dt)
 end
 
 function Player:draw()
-  self.player_run:draw(self.x, self.y, 0, self.dir, 1)
+  self.player_run:draw(self.x, self.y, 0, self.dir, 1, self.width / 2, self.height / 2)
 end

@@ -6,7 +6,7 @@ require('player')
 require('lib/AnAL')
 
 function love.load()
-  player = Player.create(0, 500, 1)
+  player = Player.create(55, 500, 1)
 end
 
 function love.update(dt)
