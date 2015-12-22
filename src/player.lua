@@ -1,6 +1,7 @@
 Player = { corners = {-6, 5, -22, -0.5} }
 Player.__index = Player
 
+local PLAYER_ID = 0
 local RUN_SPEED = 400
 local MAX_SPEED = 160
 local MAX_SPEED_CARRY = 100
@@ -43,6 +44,10 @@ function Player.create(x, y, level)
 end
 
 function Player:update(dt)
+  if ACTIVE_PLAYER ~= PLAYER_ID then
+    return
+  end
+
   self.lastDir = self.dir
   self.state = PS_RUN
 
