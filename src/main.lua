@@ -1,6 +1,7 @@
 ACTIVE_PLAYER = 0
 
 require('controls/keyboard')
+require('camera')
 require('player')
 require('player_assistant')
 
@@ -16,11 +17,14 @@ end
 function love.update(dt)
    player:update(dt)
    player_assistant:update(dt)
+   camera:update(dt)
 end
 
 function love.draw()
-   player:draw()
-   player_assistant:draw()
+  camera:set()
+  player:draw()
+  player_assistant:draw()
+  camera:unset()
 end
 
 function love.keypressed(key)
