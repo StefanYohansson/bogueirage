@@ -17,9 +17,10 @@ function PlayerAssistant.create(x, y, level)
   self.x, self.y = x, y
 
   self.xspeed = 80
-	self.yspeed = 80
+  self.yspeed = 80
   self.lastDir = 1
   self.dir = 1 -- -1 for left, 1 for right
+  self.diry = 1
   self.state = PS_RUN
   self.onGround = false
 
@@ -33,7 +34,7 @@ function PlayerAssistant.create(x, y, level)
   self.PlayerAssistant_jump = newAnimation(img_jump, self.width, self.height, 0.1, 0)
   self.PlayerAssistant_stand = newAnimation(img_stand, self.width, self.height, 0.1, 0)
   self.PlayerAssistant_fly = newAnimation(img_fly, self.width, self.height, 0.1, 0)
-
+  self.PlayerAssistant = self.PlayerAssistant_stand
   return self
 end
 
@@ -53,14 +54,28 @@ function PlayerAssistant:update(dt)
     self.dir = -1
     self:updateFlying(dt)
   end
+  if keyboard['w'] then
+    self.diry = -1
+    self.PlayerAssistant = self.PlayerAssistant_fly
+    self:updateFlying(dt)
+  end
+  if keyboard['s'] then
+    self.diry = 1
+    self.PlayerAssistant = self.PlayerAssistant_fly
+    self:updateFlying(dt)
+  end
 end
 
 function PlayerAssistant:updateFlying(dt)
-  self.x = self.x + self.xspeed * dt * self.dir
-
-  self.PlayerAssistant_stand:update(dt)
+  if keyboard['a'] or keyboard['d'] then
+    self.x = self.x + self.xspeed * dt * self.dir
+  end
+  if keyboard['w'] or keyboard['s'] then
+    self.y = self.y + self.yspeed * dt * self.diry
+  end
+  self.PlayerAssistant:update(dt)
 end
 
 function PlayerAssistant:draw()
-  self.PlayerAssistant_stand:draw(self.x, self.y, 0, self.dir, 1, self.width / 2, self.height / 2)
+  self.PlayerAssistant:draw(self.x, self.y, 0, self.dir, 1, self.width / 2, self.height / 2)
 end
