@@ -16,7 +16,7 @@ end
 
 function love.update(dt)
    player:update(dt)
-   player_assistant:update(dt)
+   player_assistant:update(dt, player.x)
    camera:update(dt)
 end
 

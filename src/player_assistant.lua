@@ -22,6 +22,7 @@ function PlayerAssistant.create(x, y, level)
   self.dir = 1 -- -1 for left, 1 for right
   self.diry = 1
   self.state = PS_RUN
+  self.follow = false 
   self.onGround = false
 
   self.tired = false
@@ -38,39 +39,55 @@ function PlayerAssistant.create(x, y, level)
   return self
 end
 
-function PlayerAssistant:update(dt)
-  if ACTIVE_PLAYER ~= PLAYER_ID then
-    return
-  end
-
+function PlayerAssistant:update(dt, player_x)
   self.lastDir = self.dir
   self.state = PS_RUN
 
   if keyboard['d'] then
     self.dir = 1
-    self:updateFlying(dt)
+    self:updateFlying(dt, player_x)
   end
   if keyboard['a'] then
     self.dir = -1
-    self:updateFlying(dt)
+    self:updateFlying(dt, player_x)
   end
   if keyboard['w'] then
     self.diry = -1
-    self.PlayerAssistant = self.PlayerAssistant_fly
-    self:updateFlying(dt)
+    self:updateFlying(dt, player_x)
   end
   if keyboard['s'] then
     self.diry = 1
-    self.PlayerAssistant = self.PlayerAssistant_fly
-    self:updateFlying(dt)
+    self:updateFlying(dt, player_x)
   end
 end
 
-function PlayerAssistant:updateFlying(dt)
+function PlayerAssistant:updateFlying(dt, player_x)
+  if self.dir == 1 then
+    if player_x <= self.x + 55 then
+      self.follow = true
+      self.xspeed = 80 
+    else
+      self.follow = false
+      self.xspeed = 150
+    end
+  else
+    if player_x >= self.x - 55 then
+      self.follow = true
+      self.xspeed = 80 
+    else
+      self.follow = false 
+      self.xspeed = 150
+    end
+  end
+  if ACTIVE_PLAYER ~= PLAYER_ID and self.follow then
+    return
+  end
+  
   if keyboard['a'] or keyboard['d'] then
     self.x = self.x + self.xspeed * dt * self.dir
   end
-  if keyboard['w'] or keyboard['s'] then
+  if (keyboard['w'] or keyboard['s']) and self.follow then
+    self.PlayerAssistant = self.PlayerAssistant_fly
     self.y = self.y + self.yspeed * dt * self.diry
   end
   self.PlayerAssistant:update(dt)

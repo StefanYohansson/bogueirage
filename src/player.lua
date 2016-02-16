@@ -18,7 +18,7 @@ function Player.create(x, y, level)
   self.x, self.y = x, y
 
   self.xspeed = 150
-	self.yspeed = 0
+  self.yspeed = 0
   self.lastDir = 1
   self.dir = 1 -- -1 for left, 1 for right
   self.state = PS_RUN
@@ -33,7 +33,7 @@ function Player.create(x, y, level)
   self.num_fuel = 0
 
   self.canGrab = false
-	self.grabbed = nil
+  self.grabbed = nil
 
   self.width = 55
   self.height = 55
