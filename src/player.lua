@@ -37,7 +37,7 @@ function Player.create(x, y, level)
 
   self.width = 55
   self.height = 55
-  local img  = love.graphics.newImage("assets/hero/hero_running.png")
+  local img  = lg.newImage("assets/hero/hero_running.png")
   self.player_run = newAnimation(img, self.width, self.height, 0.1, 0)
 
   return self

@@ -79,6 +79,16 @@ function camera:update(dt)
     self._y = self._y - 50*dt
   end
 
+  if keyboard['right'] then
+    -- self:setX(self._y + 1)
+    self._x = self._x + 50*dt
+  end
+
+  if keyboard['left'] then
+    -- self:setX(self._y + 1)
+    self._x = self._x - 50*dt
+  end
+
   if keyboard['+'] or keyboard['='] then
     -- self:setX(self._y + 1)
     self:setScale(self.scaleX + 0.1, self.scaleY +  0.1)
