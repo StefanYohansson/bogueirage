@@ -16,6 +16,7 @@ function Player.create(x, y, level)
   local self = setmetatable({}, Player)
 
   self.x, self.y = x, y
+  self.camera_x, self.camera_y = x - 200, y - 300
 
   self.xspeed = 150
   self.yspeed = 0
@@ -63,6 +64,7 @@ end
 
 function Player:updateRunning(dt)
   self.x = self.x + self.xspeed * dt * self.dir
+  self.camera_x = (self.x + self.xspeed * dt * self.dir) - 200
 
   self.player_run:update(dt)
 end

@@ -68,7 +68,13 @@ function camera:setBounds(x1, y1, x2, y2)
 end
 
 
-function camera:update(dt)
+function camera:update(dt, player_x, player_y)
+  self:setX(self._x + player_x)
+  self:setY(self._y + player_y)
+  self._x = player_x
+  self._y = player_y
+  
+--[=====[ 
   if keyboard['down'] then
     -- self:setX(self._y + 1)
     self._y = self._y + 50*dt
@@ -98,5 +104,5 @@ function camera:update(dt)
     -- self:setX(self._y + 1)
     self:setScale(self.scaleX + -0.1, self.scaleY + -0.1)
   end
-
+--]=====]
 end

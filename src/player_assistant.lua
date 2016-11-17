@@ -15,6 +15,7 @@ function PlayerAssistant.create(x, y, level)
   local self = setmetatable({}, PlayerAssistant)
 
   self.x, self.y = x, y
+  self.camera_x, self.camera_y = x - 350, y - 300
 
   self.xspeed = 80
   self.yspeed = 80
@@ -45,20 +46,17 @@ function PlayerAssistant:update(dt, player_x)
 
   if keyboard['d'] then
     self.dir = 1
-    self:updateFlying(dt, player_x)
   end
   if keyboard['a'] then
     self.dir = -1
-    self:updateFlying(dt, player_x)
   end
   if keyboard['w'] then
     self.diry = -1
-    self:updateFlying(dt, player_x)
   end
   if keyboard['s'] then
     self.diry = 1
-    self:updateFlying(dt, player_x)
   end
+  self:updateFlying(dt, player_x)
 end
 
 function PlayerAssistant:updateFlying(dt, player_x)
@@ -85,10 +83,12 @@ function PlayerAssistant:updateFlying(dt, player_x)
   
   if keyboard['a'] or keyboard['d'] then
     self.x = self.x + self.xspeed * dt * self.dir
+    self.camera_x = (self.x + self.xspeed * dt * self.dir) - 350
   end
   if (keyboard['w'] or keyboard['s']) and self.follow then
     self.PlayerAssistant = self.PlayerAssistant_fly
     self.y = self.y + self.yspeed * dt * self.diry
+    self.camera_y = (self.y + self.yspeed * dt * self.diry) - 300
   end
   self.PlayerAssistant:update(dt)
 end
